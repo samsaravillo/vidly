@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Like from '../components/common/like';
 import { getMovies } from '../services/fakeMovieService';
 
 class Movies extends Component { 
@@ -6,9 +7,16 @@ class Movies extends Component {
         movies: getMovies()
     };
 
-    handleDelete = (movie) => { 
-        console.log(movie);
+    handleDelete = movie => { 
         const movies = this.state.movies.filter(item => item !== movie);
+        this.setState({ movies });
+    };
+
+    handleLike = movie => { 
+        const movies = [...this.state.movies];
+        const index = movies.indexOf(movie);
+        movies[index] = {...movies[index]};
+        movies[index].liked = !movies[index].liked;
         this.setState({ movies });
     };
 
@@ -28,6 +36,7 @@ class Movies extends Component {
                     <th scope="col">Stock</th>
                     <th scope="col">Rate</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,8 +46,16 @@ class Movies extends Component {
                         <td>{ movie.genre.name }</td>
                         <td>{ movie.numberInStock }</td>
                         <td>{ movie.dailyRentalRate }</td>
-                        <td><button onClick={ () => this.handleDelete(movie) } 
-                                type="button" className="btn btn-danger">Delete</button></td>
+                        <td>
+                            <Like liked={movie.liked} onLikeToggle={() => this.handleLike(movie)} />
+                        </td>
+                        <td>
+                            <button 
+                                onClick={ () => this.handleDelete(movie) } 
+                                type="button" className="btn btn-danger">
+                                    Delete
+                            </button>
+                        </td>
                         </tr>
                     )}
                 </tbody>
@@ -46,6 +63,7 @@ class Movies extends Component {
             </div>
         );
     }
+
 } 
 
 export default Movies; 

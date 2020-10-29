@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Movies from './components/movies';
 
-function App() {
-  return (
-    <main className="container">
+class App extends Component {
+  state = {  };
+  
+  render() { 
+    return (
+      <main className="container">
         <Movies />
-    </main>
-  );
+      </main>
+    );
+  }
 }
 
 export default App;
