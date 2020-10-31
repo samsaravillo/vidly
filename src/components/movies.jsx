@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import Like from '../components/common/like';
 import { getMovies } from '../services/fakeMovieService';
+import { getGenres } from '../services/fakeGenreService';
 import Pagination from './common/pagination';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
-import { getGenres } from '../services/fakeGenreService';
 
 class Movies extends Component { 
     state = { 
         movies: getMovies(),
+        genres: getGenres(),
         currentPage: 1,
         pageSize: 4,
-        genres: getGenres(),
         currentGenre: 'All Genres'
     };
 
@@ -32,9 +32,11 @@ class Movies extends Component {
         this.setState({ currentPage: page});
     };
 
-    handleListGroup = genre => { 
-        console.log('genre');
-        this.setState({ currentGenre: genre});
+    handleGenreSelect = genre => { 
+        console.log('genre', genre);
+        const movies = this.state.movies.filter(item => item.genre.name === genre.name);
+        this.setState({ movies });
+        //this.setState({ currentGenre: genre});
     };
 
 
@@ -47,13 +49,12 @@ class Movies extends Component {
         
         const movies = paginate(allMovies, currentPage, pageSize);
 
-        return (
-            <div>    
+        return ( 
                 <div className="row">
                     <div className="col-2">
                         <ListGroup 
-                            genreList={genres}
-                            onFilterChange={this.handleListGroup}
+                            items={genres}
+                            onItemSelect={this.handleGenreSelect}
                         />
                     </div>
                     <div className="col">
@@ -77,7 +78,10 @@ class Movies extends Component {
                                 <td>{ movie.numberInStock }</td>
                                 <td>{ movie.dailyRentalRate }</td>
                                 <td>
-                                    <Like liked={movie.liked} onLikeToggle={() => this.handleLike(movie)} />
+                                    <Like 
+                                        liked={movie.liked} 
+                                        onLikeToggle={() => this.handleLike(movie)} 
+                                    />
                                 </td>
                                 <td>
                                     <button 
@@ -98,8 +102,6 @@ class Movies extends Component {
                         />
                     </div>
                 </div>
-                
-            </div>
         );
     }
 
