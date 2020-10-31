@@ -4,12 +4,15 @@ import { getMovies } from '../services/fakeMovieService';
 import Pagination from './common/pagination';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
+import { getGenres } from '../services/fakeGenreService';
 
 class Movies extends Component { 
     state = { 
         movies: getMovies(),
         currentPage: 1,
-        pageSize: 4
+        pageSize: 4,
+        genres: getGenres(),
+        currentGenre: 'All Genres'
     };
 
     handleDelete = movie => { 
@@ -29,9 +32,15 @@ class Movies extends Component {
         this.setState({ currentPage: page});
     };
 
+    handleListGroup = genre => { 
+        console.log('genre');
+        this.setState({ currentGenre: genre});
+    };
+
+
     render() { 
         const { length: count } = this.state.movies;
-        const { pageSize, currentPage, movies: allMovies } = this.state;
+        const { pageSize, currentPage, movies: allMovies, genres } = this.state;
 
         if (count === 0) 
             return <h3>No movies available in the database.</h3>
@@ -43,7 +52,8 @@ class Movies extends Component {
                 <div className="row">
                     <div className="col-2">
                         <ListGroup 
-                        
+                            genreList={genres}
+                            onFilterChange={this.handleListGroup}
                         />
                     </div>
                     <div className="col">
