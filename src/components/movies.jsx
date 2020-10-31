@@ -3,6 +3,7 @@ import Like from '../components/common/like';
 import { getMovies } from '../services/fakeMovieService';
 import Pagination from './common/pagination';
 import { paginate } from '../utils/paginate';
+import ListGroup from './common/listGroup';
 
 class Movies extends Component { 
     state = { 
@@ -39,45 +40,55 @@ class Movies extends Component {
 
         return (
             <div>    
-                <h3>Showing { count } movies in the database.</h3>
-                <table className="table">
-                <thead>
-                    <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Genre</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { movies.map(movie => 
-                        <tr key={ movie._id }>
-                        <th>{ movie.title }</th>
-                        <td>{ movie.genre.name }</td>
-                        <td>{ movie.numberInStock }</td>
-                        <td>{ movie.dailyRentalRate }</td>
-                        <td>
-                            <Like liked={movie.liked} onLikeToggle={() => this.handleLike(movie)} />
-                        </td>
-                        <td>
-                            <button 
-                                onClick={ () => this.handleDelete(movie) } 
-                                type="button" className="btn btn-danger">
-                                    Delete
-                            </button>
-                        </td>
-                        </tr>
-                    )}
-                </tbody>
-                </table>
-                <Pagination 
-                    itemsCount={count}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={this.handlePageChange}
-                />
+                <div className="row">
+                    <div className="col-2">
+                        <ListGroup 
+                        
+                        />
+                    </div>
+                    <div className="col">
+                        <h3>Showing { count } movies in the database.</h3>
+                        <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Genre</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { movies.map(movie => 
+                                <tr key={ movie._id }>
+                                <th>{ movie.title }</th>
+                                <td>{ movie.genre.name }</td>
+                                <td>{ movie.numberInStock }</td>
+                                <td>{ movie.dailyRentalRate }</td>
+                                <td>
+                                    <Like liked={movie.liked} onLikeToggle={() => this.handleLike(movie)} />
+                                </td>
+                                <td>
+                                    <button 
+                                        onClick={ () => this.handleDelete(movie) } 
+                                        type="button" className="btn btn-danger">
+                                            Delete
+                                    </button>
+                                </td>
+                                </tr>
+                            )}
+                        </tbody>
+                        </table>
+                        <Pagination 
+                            itemsCount={count}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onPageChange={this.handlePageChange}
+                        />
+                    </div>
+                </div>
+                
             </div>
         );
     }
