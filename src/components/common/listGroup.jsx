@@ -1,16 +1,15 @@
 import React from 'react';
-import { genres } from '../../services/fakeGenreService';
 
 const ListGroup = props => {
-     const { items, onItemSelect } = props;
+     const { items, textProperty, valueProperty, onItemSelect } = props;
     return (  
         <ul className="list-group">
-            { genres.map(genre  => (
-                <li key={genre._id} 
-                    className={genre.name === onItemSelect ? '' : 'list-group-item'}
-                    onClick={() => onItemSelect(genre)}
+            { items.map(item  => (
+                <li key={item[valueProperty]} 
+                    className={item.name === onItemSelect ? '' : 'list-group-item'}
+                    onClick={() => onItemSelect(item)}
                 >
-                    {genre.name}
+                    {item[textProperty]}
                 </li>
             ))}
         </ul>
