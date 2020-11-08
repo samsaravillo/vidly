@@ -4,6 +4,7 @@ class MovieForm extends Component {
   handleSave = () => {
     // this.props.history.replace("/products");
     console.log("Save");
+    this.props.history.push("/movies");
   };
 
   render() {

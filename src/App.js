@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import NavBar from './components/navbar';
 import Movies from './components/movies';
@@ -7,6 +6,7 @@ import Customers from './components/customers';
 import Rentals from './components/rentals';
 import NotFound from './components/notFound';
 import MovieForm from './components/movieForm';
+import './App.css';
 
 class App extends Component {
   state = {  };
