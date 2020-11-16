@@ -6,7 +6,7 @@ import Customers from './components/customers';
 import Rentals from './components/rentals';
 import NotFound from './components/notFound';
 import MovieForm from './components/movieForm';
-import LoginForm from './components/logainForm';
+import LoginForm from './components/loginForm';
 import './App.css';
 
 class App extends Component {
