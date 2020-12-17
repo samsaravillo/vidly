@@ -88,8 +88,8 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
-            <Link className="navbar-brand" to="/movies/new">
-              <button className="btn btn-primary">New Movie</button>
+            <Link className="btn btn-primary" to="/movies/new">
+              New Movie
             </Link>
             <h3>Showing {totalCount} movies in the database.</h3>
             <MoviesTable
