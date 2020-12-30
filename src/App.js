@@ -12,8 +12,6 @@ import "./App.css";
 import Titosane from './components/common/titosane';
 
 class App extends Component {
-  state = {};
-
   render() {
     return (
       <React.Fragment>
