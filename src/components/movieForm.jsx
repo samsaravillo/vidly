@@ -28,14 +28,14 @@ class MovieForm extends Form {
     dailyRentalRate: Joi.number()
       .required()
       .min(0)
-      .max(100)
+      .max(10)
       .label("Daily Rental Rate"),
   };
 
   componentDidMount() {
     const genres = getGenres();
     this.setState({ genres });
-    console.log(this.props);
+
     const movieId = this.props.match.params._id;
     if (movieId === "new") {
       return;
@@ -59,16 +59,7 @@ class MovieForm extends Form {
     };
   }
 
-  handleSave = () => {
-    // this.props.history.replace("/products");
-    console.log("Save");
-    console.log("this.props", this.props.history.push);
-    this.props.history.push("/movies");
-  };
-
   doSubmit = () => {
-    //Call the server
-    console.log("Submitted");
     saveMovie(this.state.data);
     this.props.history.push("/movies");
   };
@@ -84,8 +75,6 @@ class MovieForm extends Form {
           {this.renderInput("dailyRentalRate", "Rate")}
           {this.renderButton("Save")}
         </form>
-
-        {/* <button onClick={this.handleSave}>Save</button> */}
       </div>
     );
   }
