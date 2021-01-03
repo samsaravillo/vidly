@@ -7,6 +7,7 @@ import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import Link from "react-router-dom/Link";
+import Search from "./common/search";
 class Movies extends Component {
   state = {
     movies: [],
@@ -96,6 +97,7 @@ class Movies extends Component {
               New Movie
             </Link>
             <h3>Showing {totalCount} movies in the database.</h3>
+            <Search />
             <MoviesTable
               movies={movies}
               sortColumn={sortColumn}
