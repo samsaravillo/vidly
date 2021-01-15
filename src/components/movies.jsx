@@ -97,7 +97,7 @@ class Movies extends Component {
               New Movie
             </Link>
             <h3>Showing {totalCount} movies in the database.</h3>
-            <Search />
+            <Search movies={movies} />
             <MoviesTable
               movies={movies}
               sortColumn={sortColumn}
