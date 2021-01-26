@@ -8,7 +8,6 @@ import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import Link from "react-router-dom/Link";
 import SearchBox from "./common/searchBox";
-import { query } from "express";
 class Movies extends Component {
   state = {
     movies: [],
@@ -25,12 +24,12 @@ class Movies extends Component {
     this.setState({ movies: getMovies(), genres });
   }
 
-  handleDelete = movie => {
+  handleDelete = (movie) => {
     const movies = this.state.movies.filter((item) => item !== movie);
     this.setState({ movies });
   };
 
-  handleLike = movie => {
+  handleLike = (movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     movies[index] = { ...movies[index] };
@@ -38,20 +37,24 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handlePageChange = page => {
+  handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
 
-  handleGenreSelect = genre => {
-    this.setState({ selectedGenre: genre, searchQuery:"", currentPage: 1 });
+  handleGenreSelect = (genre) => {
+    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
   };
 
-  handleSearch = query => {
-    console.log('search');
-    this.setState({ selectedGenre: query, selectedGenre: null, currentPage:1 });
+  handleSearch = (query) => {
+    console.log("search");
+    this.setState({
+      selectedGenre: query,
+      searchQuery: query,
+      currentPage: 1,
+    });
   };
 
-  handleSort = sortColumn => {
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
@@ -67,8 +70,9 @@ class Movies extends Component {
 
     let filtered = allMovies;
     if (searchQuery) {
-      filtered = allMovies.filter(m => 
-        m.title.toLowerCase().startsWith(searchQuery.toLowerCase()));
+      filtered = allMovies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
     } else if (selectedGenre && selectedGenre._id) {
       filtered = allMovies.filter((m) => m.genre._id === selectedGenre._id);
     }
@@ -109,7 +113,10 @@ class Movies extends Component {
               New Movie
             </Link>
             <h3>Showing {totalCount} movies in the database.</h3>
-            <SearchBox value={this.state.searchQuery} onChange={this.handleSearch} />
+            <SearchBox
+              value={this.state.searchQuery}
+              onChange={this.handleSearch}
+            />
             <MoviesTable
               movies={movies}
               sortColumn={sortColumn}
