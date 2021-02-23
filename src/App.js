@@ -9,7 +9,7 @@ import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import "./App.css";
-import Titosane from './components/common/titosane';
+import Titosane from "./components/common/titosane";
 
 class App extends Component {
   render() {
@@ -21,8 +21,7 @@ class App extends Component {
             <Switch>
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
-              <Route path="/titosane" component={Titosane} />
-              <Route path="/movies/:_id" component={MovieForm}  />
+              <Route path="/movies/:_id" component={MovieForm} />
               <Route path="/movies" component={Movies} />
               <Route path="/customers" component={Customers} />
               <Route path="/rentals" component={Rentals} />
