@@ -9,7 +9,6 @@ import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import "./App.css";
-import Titosane from "./components/common/titosane";
 
 class App extends Component {
   render() {
