@@ -1,8 +1,8 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { getMovie, saveMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovie, saveMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 
 class MovieForm extends Form {
   state = {
@@ -32,8 +32,8 @@ class MovieForm extends Form {
       .label("Daily Rental Rate"),
   };
 
-  componentDidMount() {
-    const genres = getGenres();
+  async componentDidMount() {
+    const { data: genres } = await getGenres();
     this.setState({ genres });
 
     const movieId = this.props.match.params._id;
@@ -41,12 +41,14 @@ class MovieForm extends Form {
       return;
     }
 
-    const movie = getMovie(movieId);
-    if (!movie) {
-      return this.props.history.replace("/not-found");
+    try {
+      const { data: movie } = await getMovie(movieId);
+      this.setState({ data: this.mapToViewModel(movie) });
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        this.props.history.replace("/not-found");
+      }
     }
-
-    this.setState({ data: this.mapToViewModel(movie) });
   }
 
   mapToViewModel(movie) {
