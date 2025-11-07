@@ -1,8 +1,8 @@
 import http from './httpService';
-import { apiUrl } from '../config.json';
+import config from '../config.json';
 
-const apiEndpoint = apiUrl + "/auth";
+const apiEndpoint = config.apiUrl + '/auth';
 
 export function login(email, password) {
-    return http.post(apiEndpoint, {email, password});
+  return http.post(apiEndpoint, { email, password });
 }
